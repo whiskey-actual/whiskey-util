@@ -103,9 +103,9 @@ export class Utilities {
           output = objectToClean.toString().trim()
           if(output==='') {
             output = undefined
-          } else {
-            output = undefined
-          }
+          }           
+        } else {
+          output = undefined
         }
       } catch(err) {
         throw(`${arguments.callee.toString()}: ${err}`)
