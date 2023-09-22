@@ -138,14 +138,13 @@ export class Utilities {
       return output
     }
 
-    public static async executePromisesWithProgress(logStack:string[], promises:Promise<any>[], logFrequency:number=1000) {
+    public static async executePromisesWithProgress(logEngine:LogEngine, promises:Promise<any>[], logFrequency:number=1000) {
       const timeStart:Date = new Date()
       let d:number=0
-      const le = new LogEngine(logStack)
 
       const progressCallback = (p:number)=>{
         if(p>0 && p%logFrequency===0) {
-            le.AddLogEntry(LogEngine.Severity.Ok, this.getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
+            logEngine.AddLogEntry(LogEngine.Severity.Ok, this.getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
         }
       }
       
@@ -165,7 +164,7 @@ export class Utilities {
       }
       await Promise.all(promises);
 
-      le.AddLogEntry(LogEngine.Severity.Ok, `.. complete; performed ${promises.length} operations in ${this.formatDuration(timeStart, new Date())}`);
+      logEngine.AddLogEntry(LogEngine.Severity.Ok, `.. complete; performed ${promises.length} operations in ${this.formatDuration(timeStart, new Date())}`);
 
       return;
     }
@@ -197,19 +196,17 @@ export class Utilities {
   
     }
 
-    public static pruneJsonObject(logStack:string[], jsonObject:any, keyToPrune:string[], valueToKeep:any, showDebug:boolean=false):any {
+    public static pruneJsonObject(logEngine:LogEngine, jsonObject:any, keyToPrune:string[], valueToKeep:any, showDebug:boolean=false):any {
 
       try {
 
-        const le = new LogEngine(logStack)
-
         for(let i=0; i<keyToPrune.length; i++) {
           if(Object.keys(jsonObject).includes(keyToPrune[i]) && (jsonObject[keyToPrune[i]]!=valueToKeep || jsonObject[keyToPrune[i]]===undefined)) {
-            if(showDebug) { le.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: pruning key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
+            if(showDebug) { logEngine.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: pruning key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
             delete jsonObject[keyToPrune[i]]
           }
           else {
-            if(showDebug) { le.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: keeping key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
+            if(showDebug) { logEngine.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: keeping key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
           }
         }
         return jsonObject
