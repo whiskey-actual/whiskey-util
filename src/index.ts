@@ -1,3 +1,7 @@
+// external imports
+import { LogEngine } from 'whiskey-log'
+
+
 export class Utilities {
 
     public static minimumJsonDate:Date = new Date(-8640000000000000);
@@ -92,105 +96,6 @@ export class Utilities {
 
     }
 
-    public static padString(stringToPad:string, padCharacter:string=' ', width:number=16, padSide:Utilities.Direction=Direction.Right) {
-      if (typeof stringToPad === 'undefined') {
-        return padCharacter;
-      }
-      else if (stringToPad.length>width) {
-        return stringToPad.substring(0,width-3) + '..'
-      }
-      else {
-
-        const padString:string = Array(width-stringToPad.length).join(padCharacter).toString()
-
-        if (padSide===Direction.Left) {
-          return (padString + stringToPad)
-        } else {
-          return (stringToPad + padString)
-        }
-      }
-    }
-
-    public static getDateTimeString():string {
-
-      let output:string = '';
-    
-      try {
-        // parse the date/time ourselves, so we don't have any dependencies.
-        const timestamp = new Date();
-        const d = timestamp.getDate();
-        const m = timestamp.getMonth() + 1;
-        const y = timestamp.getFullYear();
-        const date = `${y}-${m <= 9 ? "0" + m : m}-${d <= 9 ? "0" + d : d}`;
-    
-        const h = timestamp.getHours();
-        const mm = timestamp.getMinutes();
-        const s = timestamp.getSeconds();
-        const time = `${h <= 9 ? "0" + h : h}:${mm <= 9 ? "0" + mm : mm}:${
-          s <= 9 ? "0" + s : s
-        }`;
-    
-        output = `${date} ${time}`
-    
-      } catch (err) {
-        throw(`${arguments.callee.toString()}: ${err}`)
-      }
-    
-      return output;
-    
-    }
-    
-    public static getCallStackString():string {
-    
-      let output:string = '';
-    
-      try {
-    
-        let pathElements = [];
-        const callStack = new Error().stack?.split('\n');
-    
-        if(callStack) {
-    
-          const functionsToIgnore = [
-            'Object.<anonymous>',
-            'Server.<anonymous>',
-            'Object.onceWrapper',
-            'Server.emit',
-            'emitListeningNT',
-            'Module._compile',
-            'Module._extensions..js',
-            'Module.load',
-            'Module._load',
-            'Function.executeUserEntryPoint',
-            'process.processTicksAndRejections',
-            'getCallStackString',
-            'WhiskeyLog.AddLogEntry'
-          ]
-    
-          for(let i=1; i<callStack.length; i++) {
-    
-            const functionName = "" + callStack[i].trim().split(' ')[1];
-    
-            if(!functionsToIgnore.includes(functionName) && !functionName.startsWith("node:") && !functionName.startsWith("WhiskeyUtilities.")) {
-              pathElements.push(functionName);
-            }
-    
-          }
-    
-          if(pathElements.length>0) {
-            output = pathElements.reverse().join(":");
-          }
-    
-        }
-    
-      } catch (err) {
-        throw(`${arguments.callee.toString()}: ${err}`)
-      }
-    
-      return output;
-    
-    }
-
     public static CleanedString(objectToClean:any):string|undefined {
       let output:string|undefined=''
       try {
@@ -206,8 +111,7 @@ export class Utilities {
         throw(`${arguments.callee.toString()}: ${err}`)
       }
       return output
-    }  
-    
+    }     
 
     public static CleanedDate(objectToClean:any):Date|undefined {
       let output:Date|undefined=undefined
@@ -241,7 +145,7 @@ export class Utilities {
 
       const progressCallback = (p:number)=>{
         if(p>0 && p%logFrequency===0) {
-            le.AddLogEntry(LogEntrySeverity.Ok, this.getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
+            le.AddLogEntry(LogEngine.Severity.Ok, this.getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
         }
       }
       
@@ -261,14 +165,14 @@ export class Utilities {
       }
       await Promise.all(promises);
 
-      le.AddLogEntry(LogEntrySeverity.Ok, `.. complete; performed ${promises.length} operations in ${this.formatDuration(timeStart, new Date())}`);
+      le.AddLogEntry(LogEngine.Severity.Ok, `.. complete; performed ${promises.length} operations in ${this.formatDuration(timeStart, new Date())}`);
 
       return;
     }
 
     public static getMaxDateFromObject(jsonObject:any, keysToConsider:string[]):Date {
 
-      let output:Date = minimumJsonDate
+      let output:Date = Utilities.minimumJsonDate;
 
       try {
 
@@ -301,11 +205,11 @@ export class Utilities {
 
         for(let i=0; i<keyToPrune.length; i++) {
           if(Object.keys(jsonObject).includes(keyToPrune[i]) && (jsonObject[keyToPrune[i]]!=valueToKeep || jsonObject[keyToPrune[i]]===undefined)) {
-            if(showDebug) { le.AddLogEntry(LogEntrySeverity.Debug, `${jsonObject.deviceName} :: pruning key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
+            if(showDebug) { le.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: pruning key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
             delete jsonObject[keyToPrune[i]]
           }
           else {
-            if(showDebug) { le.AddLogEntry(LogEntrySeverity.Debug, `${jsonObject.deviceName} :: keeping key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
+            if(showDebug) { le.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: keeping key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
           }
         }
         return jsonObject
@@ -320,3 +224,4 @@ export class Utilities {
     }
 
 }
+

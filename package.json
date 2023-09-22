@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/whiskey-actual/whiskey-util/issues"
   },
-  "homepage": "https://github.com/whiskey-actual/whiskey-util#readme"
+  "homepage": "https://github.com/whiskey-actual/whiskey-util#readme",
+  "dependencies": {
+    "whiskey-log": "^1.0.0"
+  }
 }
