@@ -196,17 +196,17 @@ export class Utilities {
   
     }
 
-    public static pruneJsonObject(logEngine:LogEngine, jsonObject:any, keyToPrune:string[], valueToKeep:any, showDebug:boolean=false):any {
+    public static pruneJsonObject(logEngine:LogEngine, jsonObject:any, keyToPrune:string[], valueToKeep:any):any {
 
       try {
 
         for(let i=0; i<keyToPrune.length; i++) {
           if(Object.keys(jsonObject).includes(keyToPrune[i]) && (jsonObject[keyToPrune[i]]!=valueToKeep || jsonObject[keyToPrune[i]]===undefined)) {
-            if(showDebug) { logEngine.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: pruning key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
+            logEngine.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: pruning key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`)
             delete jsonObject[keyToPrune[i]]
           }
           else {
-            if(showDebug) { logEngine.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: keeping key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`) }
+            logEngine.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: keeping key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`)
           }
         }
         return jsonObject
