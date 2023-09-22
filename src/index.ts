@@ -219,7 +219,7 @@ export class Utilities {
       }
     }
 
-    public ldapTimestampToJS(timestamp:string):Date {
+    public static ldapTimestampToJS(timestamp:string):Date {
       return new Date(parseInt(timestamp) / 1e4 - 1.16444736e13)
     }
 
