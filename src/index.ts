@@ -144,7 +144,7 @@ export class Utilities {
 
       const progressCallback = (p:number)=>{
         if(p>0 && p%logFrequency===0) {
-            logEngine.AddLogEntry(LogEngine.Severity.Ok, this.getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
+            logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Success, this.getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
         }
       }
       
@@ -164,7 +164,7 @@ export class Utilities {
       }
       await Promise.all(promises);
 
-      logEngine.AddLogEntry(LogEngine.Severity.Ok, `.. complete; performed ${promises.length} operations in ${this.formatDuration(timeStart, new Date())}`);
+      logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Success, `.. complete; performed ${promises.length} operations in ${this.formatDuration(timeStart, new Date())}`);
 
       return;
     }
@@ -202,11 +202,11 @@ export class Utilities {
 
         for(let i=0; i<keyToPrune.length; i++) {
           if(Object.keys(jsonObject).includes(keyToPrune[i]) && (jsonObject[keyToPrune[i]]!=valueToKeep || jsonObject[keyToPrune[i]]===undefined)) {
-            logEngine.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: pruning key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`)
+            logEngine.AddLogEntry(LogEngine.Severity.Debug, LogEngine.Action.Remove, `${jsonObject.deviceName} :: pruning key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`)
             delete jsonObject[keyToPrune[i]]
           }
           else {
-            logEngine.AddLogEntry(LogEngine.Severity.Debug, `${jsonObject.deviceName} :: keeping key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`)
+            logEngine.AddLogEntry(LogEngine.Severity.Debug, LogEngine.Action.Success, `${jsonObject.deviceName} :: keeping key: ${[keyToPrune[i]]} (${jsonObject[keyToPrune[i]]})`)
           }
         }
         return jsonObject
