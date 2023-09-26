@@ -96,16 +96,13 @@ export class Utilities {
 
     }
 
-    public static CleanedString(objectToClean:any):string|undefined {
-      let output:string|undefined=''
+    public static CleanedString(objectToClean:any):string {
+      let output:string=''
       try {
         if(objectToClean) {
           output = objectToClean.toString().trim()
-          if(output==='') {
-            output = undefined
-          }           
         } else {
-          output = undefined
+          output = ''
         }
       } catch(err) {
         throw(`${arguments.callee.toString()}: ${err}`)
@@ -113,8 +110,8 @@ export class Utilities {
       return output
     }     
 
-    public static CleanedDate(objectToClean:any):Date|undefined {
-      let output:Date|undefined=undefined
+    public static CleanedDate(objectToClean:any):Date {
+      let output:Date=this.minimumJsonDate
 
       try {
 
