@@ -82,10 +82,11 @@ export class Utilities {
             const secondsRemaining:number = itemsRemaining/ratePerSecond;
             const eta:Date = new Date(new Date().getTime() + (secondsRemaining*1000))
             output += ` (${itemsRemaining} left; ETA ~${Utilities.formatDuration(new Date(), eta)})`
+          } else {
+            output += `.. done.`
           }
-          else {
-            output += ` .. ${action} no records to process`
-          }
+        } else {
+          output += ` .. ${action} no records to process`
         }
       }
       catch(err) {
