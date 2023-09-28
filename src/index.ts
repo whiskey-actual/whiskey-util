@@ -139,32 +139,45 @@ export class Utilities {
     }
 
     public static async executePromisesWithProgress(logEngine:LogEngine, promises:Promise<any>[], logFrequency:number=1000) {
-      const timeStart:Date = new Date()
-      let d:number=0
+      logEngine.logStack.push("executePromisesWithProgress")
+      logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Note, `executing ${promises.length} commands ..`);
+      try {
 
-      const progressCallback = (p:number)=>{
-        if(p>0 && p%logFrequency===0) {
-            logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Success, this.getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
+        const timeStart:Date = new Date()
+        let d:number=0
+
+        const progressCallback = (p:number)=>{
+          if(p>0 && p%logFrequency===0) {
+              logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Success, this.getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
+          }
         }
+        
+        progressCallback(0);
+
+        for(const promise of promises) {
+            await promise
+            .then(() => {
+                d++;
+                progressCallback(d)
+            })
+            .catch((err: any) => {
+              throw(`${arguments.callee.toString()}: ${err}`)
+            })
+            
+            
+        }
+        await Promise.all(promises);
+
+        logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Success, `.. complete; performed ${promises.length} operations in ${this.formatDuration(timeStart, new Date())}`);
+
+      } catch(err) {
+        logEngine.AddLogEntry(LogEngine.Severity.Error, LogEngine.Action.Note, `${err}`)
+        throw(err)
+      } finally {
+        logEngine.logStack.pop()
       }
       
-      progressCallback(0);
-
-      for(const promise of promises) {
-          await promise
-          .then(() => {
-              d++;
-              progressCallback(d)
-          })
-          .catch((err: any) => {
-            throw(`${arguments.callee.toString()}: ${err}`)
-          })
-          
-          
-      }
-      await Promise.all(promises);
-
-      logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Success, `.. complete; performed ${promises.length} operations in ${this.formatDuration(timeStart, new Date())}`);
+      
 
       return;
     }
