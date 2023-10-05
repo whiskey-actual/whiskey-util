@@ -121,7 +121,7 @@ export class Utilities {
 
         if(objectToClean) {
           let dateObject:Date = new Date(objectToClean)
-          if(dateObject instanceof Date && !isNaN(dateObject.valueOf())) { output = dateObject }
+          if(dateObject instanceof Date && !isNaN(dateObject.valueOf()) && dateObject>this.minimumJsonDate) { output = dateObject }
         }
       } catch(err) {
         throw(`${arguments.callee.toString()}: ${err}`)
