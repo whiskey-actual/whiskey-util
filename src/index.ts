@@ -178,9 +178,9 @@ export class Utilities {
       return;
     }
 
-    public static getMaxDateFromObject(jsonObject:any, keysToConsider:string[]):Date {
+    public static getMaxDateFromObject(jsonObject:any, keysToConsider:string[]):Date|undefined {
 
-      let output:Date = Utilities.minimumJsonDate;
+      let output:Date|undefined = Utilities.minimumJsonDate;
 
       try {
 
@@ -194,6 +194,10 @@ export class Utilities {
     
         for(let i=0;i<dates.length; i++) {
           if(dates[i]>output) { output=dates[i] }
+        }
+
+        if(output===this.minimumJsonDate) {
+          output=undefined
         }
 
       } 
