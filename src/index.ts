@@ -187,7 +187,7 @@ export class Utilities {
         for(let i=0; i<keysToConsider.length; i++) {
           if(Object.keys(jsonObject).includes(keysToConsider[i])) {
             const d = new Date(jsonObject[keysToConsider[i]]);
-            console.debug(`${keysToConsider[i]}: ${d.toDateString}`)
+            console.debug(`${keysToConsider[i]}: ${d.toDateString()}`)
             if(d>output) { output = d}
           }
         }
@@ -201,7 +201,7 @@ export class Utilities {
         throw(`${arguments.callee.toString()}: ${err}`)
       }
 
-      console.debug(`output: ${output?.toString}`)
+      console.debug(`output: ${output?.toString()}`)
   
       return output
   
