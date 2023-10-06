@@ -97,7 +97,7 @@ export class Utilities {
 
     }
 
-    public static CleanedString(objectToClean:any):string|undefined|null {
+    public static CleanedString(objectToClean:any):string|undefined {
       let output:string|undefined=undefined
       try {
         if(objectToClean && objectToClean!==null && output!=='') {
@@ -109,7 +109,7 @@ export class Utilities {
       return output
     }     
 
-    public static CleanedDate(objectToClean:any):Date|undefined|null {
+    public static CleanedDate(objectToClean:any):Date|undefined {
       let output:Date|undefined=undefined
 
       try {
