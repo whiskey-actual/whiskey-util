@@ -97,34 +97,29 @@ export class Utilities {
 
     }
 
-    public static CleanedString(objectToClean:any):string|undefined {
-      let output:string|undefined=''
+    public static CleanedString(objectToClean:any):string|undefined|null {
+      let output:string|undefined=undefined
       try {
-        if(objectToClean) {
+        if(objectToClean && objectToClean!==null && output!=='') {
           output = objectToClean.toString().trim()
-          if(output==='') {
-            output = undefined
-          }           
-        } else {
-          output = undefined
         }
       } catch(err) {
-        throw(`${arguments.callee.toString()}: ${err}`)
+        throw(`${arguments.callee.toString()} : [${objectToClean}] : ${err}`)
       }
       return output
     }     
 
-    public static CleanedDate(objectToClean:any):Date|undefined {
+    public static CleanedDate(objectToClean:any):Date|undefined|null {
       let output:Date|undefined=undefined
 
       try {
 
-        if(objectToClean) {
+        if(objectToClean && objectToClean!==null) {
           let dateObject:Date = new Date(objectToClean)
           if(dateObject instanceof Date && !isNaN(dateObject.valueOf()) && dateObject>this.minimumJsonDate) { output = dateObject }
         }
       } catch(err) {
-        throw(`${arguments.callee.toString()}: ${err}`)
+        throw(`${arguments.callee.toString()} : [${objectToClean}] : ${err}`)
       }
 
       return output
