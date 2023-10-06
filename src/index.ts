@@ -183,17 +183,13 @@ export class Utilities {
       let output:Date|undefined = Utilities.minimumJsonDate;
 
       try {
-
-        let dates:Date[] = []
   
         for(let i=0; i<keysToConsider.length; i++) {
           if(Object.keys(jsonObject).includes(keysToConsider[i])) {
-            dates.push(new Date(jsonObject[keysToConsider[i]]));
+            const d = new Date(jsonObject[keysToConsider[i]]);
+            console.debug(`${keysToConsider[i]}: ${d.toDateString}`)
+            if(d>output) { output = d}
           }
-        }
-    
-        for(let i=0;i<dates.length; i++) {
-          if(dates[i]>output) { output=dates[i] }
         }
 
         if(output===this.minimumJsonDate) {
@@ -204,6 +200,8 @@ export class Utilities {
       catch(err) {
         throw(`${arguments.callee.toString()}: ${err}`)
       }
+
+      console.debug(`output: ${output?.toString}`)
   
       return output
   
