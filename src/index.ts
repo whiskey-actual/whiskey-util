@@ -179,9 +179,7 @@ export class Utilities {
     }
 
     public static getMaxDateFromObject(jsonObject:any, keysToConsider:string[]):Date|undefined {
-
       let output:Date|undefined = Utilities.minimumJsonDate;
-
       try {
   
         for(let i=0; i<keysToConsider.length; i++) {
@@ -191,20 +189,12 @@ export class Utilities {
             if(d>output) { output = d}
           }
         }
-
-        if(output===this.minimumJsonDate) {
-          output=undefined
-        }
-
+        if(output===this.minimumJsonDate) { output=undefined }
       } 
       catch(err) {
         throw(`${arguments.callee.toString()}: ${err}`)
       }
-
-      console.debug(`output: ${output?.toString()}`)
-  
       return output
-  
     }
 
     public static pruneJsonObject(logEngine:LogEngine, jsonObject:any, keyToPrune:string[], valueToKeep:any):any {
