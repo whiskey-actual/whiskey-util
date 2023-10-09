@@ -172,8 +172,6 @@ export class Utilities {
       } finally {
         logEngine.logStack.pop()
       }
-      
-      
 
       return;
     }
@@ -181,11 +179,9 @@ export class Utilities {
     public static getMaxDateFromObject(jsonObject:any, keysToConsider:string[]):Date|undefined {
       let output:Date|undefined = Utilities.minimumJsonDate;
       try {
-  
-        for(let i=0; i<keysToConsider.length; i++) {
+          for(let i=0; i<keysToConsider.length; i++) {
           if(Object.keys(jsonObject).includes(keysToConsider[i])) {
             const d = new Date(jsonObject[keysToConsider[i]]);
-            console.debug(`${keysToConsider[i]}: ${d.toDateString()}`)
             if(d>output) { output = d}
           }
         }
