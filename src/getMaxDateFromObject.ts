@@ -1,6 +1,6 @@
 import { minimumJsonDate } from "./minimumJsonDate";
 
-export function getMaxDateFromObject(jsonObject:any, keysToConsider:string[]):Date|undefined {
+export const getMaxDateFromObject = function(jsonObject:any, keysToConsider:string[]):Date|undefined {
     let output:Date|undefined = minimumJsonDate;
     try {
         for(let i=0; i<keysToConsider.length; i++) {

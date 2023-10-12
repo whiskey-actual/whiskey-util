@@ -1,4 +1,4 @@
-export function CleanedString(objectToClean:any):string|undefined {
+export const CleanedString = function(objectToClean:any):string|undefined {
     let output:string|undefined=undefined
     try {
       if(objectToClean && objectToClean!==null && output!=='') {

@@ -1,4 +1,4 @@
-export function getProcessingRatePerSecond(countOfItemsCompleted:number = 0, timeStart:Date=new Date(), timeEnd:Date=new Date()):number {
+export const getProcessingRatePerSecond = function(countOfItemsCompleted:number = 0, timeStart:Date=new Date(), timeEnd:Date=new Date()):number {
 
     let output:number = 0
 

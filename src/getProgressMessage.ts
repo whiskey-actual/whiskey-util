@@ -1,7 +1,7 @@
 import { getProcessingRatePerSecond } from "./getProcessingRatePerSecond";
 import { formatDuration } from "./formatDuration";
 
-export function getProgressMessage(prefix:string='', action:string='', itemsComplete:number=0, itemsTotal:number=0, timeStart:Date=new Date(), timeEnd:Date=new Date()) {
+export const getProgressMessage = function(prefix:string='', action:string='', itemsComplete:number=0, itemsTotal:number=0, timeStart:Date=new Date(), timeEnd:Date=new Date()) {
 
     let output:string = "";
 

@@ -1,4 +1,4 @@
-export function formatDuration(startTime:Date, endTime:Date) {
+export const formatDuration = function(startTime:Date, endTime:Date) {
 
     let output = "";
 

@@ -2,7 +2,7 @@ import { LogEngine } from "whiskey-log";
 import { getProgressMessage } from "./getProgressMessage";
 import { formatDuration } from "./formatDuration";
 
-export async function executePromisesWithProgress(logEngine:LogEngine, promises:Promise<any>[], logFrequency:number=1000) {
+export const executePromisesWithProgress = async function(logEngine:LogEngine, promises:Promise<any>[], logFrequency:number=1000) {
     logEngine.logStack.push("executePromisesWithProgress")
     logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Note, `executing ${promises.length} commands ..`);
     try {

@@ -1,4 +1,4 @@
-export function doesRegexMatch(stringToAssess:string, regexStrings:string[]):boolean {
+export const doesRegexMatch = function(stringToAssess:string, regexStrings:string[]):boolean {
 
     let isMatch:boolean=true;
 

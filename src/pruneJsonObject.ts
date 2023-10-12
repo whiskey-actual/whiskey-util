@@ -1,6 +1,6 @@
 import { LogEngine } from "whiskey-log"
 
-export function pruneJsonObject(logEngine:LogEngine, jsonObject:any, keyToPrune:string[], valueToKeep:any):any {
+export const pruneJsonObject = function(logEngine:LogEngine, jsonObject:any, keyToPrune:string[], valueToKeep:any):any {
 
     try {
 

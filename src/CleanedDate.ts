@@ -1,6 +1,6 @@
 import { minimumJsonDate } from "./minimumJsonDate"
 
-export function CleanedDate(objectToClean:any):Date|undefined {
+export const CleanedDate= function(objectToClean:any):Date|undefined {
     let output:Date|undefined=undefined
 
     try {
