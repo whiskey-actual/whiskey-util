@@ -21,5 +21,8 @@
   "homepage": "https://github.com/whiskey-actual/whiskey-util#readme",
   "dependencies": {
     "whiskey-log": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.4"
   }
 }

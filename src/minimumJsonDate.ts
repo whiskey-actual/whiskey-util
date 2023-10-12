@@ -1,0 +1,1 @@
+ export const minimumJsonDate:Date = new Date(-8640000000000000);
