@@ -15,7 +15,7 @@ import { getProcessingRatePerSecond } from './getProcessingRatePerSecond';
 import { getProgressMessage } from './getProgressMessage';
 import { doesRegexMatch } from './doesRegexMatch';
 
-module.exports = {
+export = {
   minimumJsonDate,
   getMaxDateFromArray,
   formatDuration,
