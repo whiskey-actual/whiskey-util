@@ -1,7 +1,7 @@
 import { CleanedDate } from './CleanedDate';
 import { minimumJsonDate } from './minimumJsonDate'
 
-export const getMaxDateFromArray = function(dates:(Date[]|(Date[]|undefined))):Date|undefined{
+export const getMaxDateFromArray = function(dates:(Date[]|undefined)):Date|undefined {
     let output:Date|undefined = undefined
     
     try {
