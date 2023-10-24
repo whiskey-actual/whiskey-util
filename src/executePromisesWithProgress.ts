@@ -4,7 +4,7 @@ import { formatDuration } from "./formatDuration";
 
 export const executePromisesWithProgress = async function(logEngine:LogEngine, promises:Promise<any>[], logFrequency:number=1000) {
     logEngine.logStack.push("executePromisesWithProgress")
-    logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Note, `executing ${promises.length} commands ..`);
+    logEngine.AddLogEntry(LogEngine.EntryType.Info, `executing ${promises.length} commands ..`);
     try {
 
       const timeStart:Date = new Date()
@@ -12,7 +12,7 @@ export const executePromisesWithProgress = async function(logEngine:LogEngine, p
 
       const progressCallback = (p:number)=>{
         if(p>0 && p%logFrequency===0) {
-            logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Success, getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
+            logEngine.AddLogEntry(LogEngine.EntryType.Info, getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
         }
       }
       
@@ -32,10 +32,10 @@ export const executePromisesWithProgress = async function(logEngine:LogEngine, p
       }
       await Promise.all(promises);
 
-      logEngine.AddLogEntry(LogEngine.Severity.Info, LogEngine.Action.Success, `.. complete; performed ${promises.length} operations in ${formatDuration(timeStart, new Date())}`);
+      logEngine.AddLogEntry(LogEngine.EntryType.Success, `.. complete; performed ${promises.length} operations in ${formatDuration(timeStart, new Date())}`);
 
     } catch(err) {
-      logEngine.AddLogEntry(LogEngine.Severity.Error, LogEngine.Action.Note, `${err}`)
+      logEngine.AddLogEntry(LogEngine.EntryType.Error, `${err}`)
       throw(err)
     } finally {
       logEngine.logStack.pop()
