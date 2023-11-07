@@ -14,6 +14,7 @@ import { pruneJsonObject } from './pruneJsonObject'
 import { getProcessingRatePerSecond } from './getProcessingRatePerSecond';
 import { getProgressMessage } from './getProgressMessage';
 import { doesRegexMatch } from './doesRegexMatch';
+import { getAlphaArray } from './AlphaArray';
 
 export = {
   minimumJsonDate,
@@ -28,5 +29,6 @@ export = {
   getMaxDateFromObject,
   pruneJsonObject,
   ldapTimestampToJS,
-  doesRegexMatch
+  doesRegexMatch,
+  getAlphaArray
 }
