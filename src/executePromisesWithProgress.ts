@@ -7,11 +7,13 @@ export const executePromisesWithProgress = async function(logEngine:LogEngine, p
     logEngine.AddLogEntry(LogEngine.EntryType.Info, `executing ${promises.length} commands ..`);
     try {
 
+      console.debug(promises)
+
       const timeStart:Date = new Date()
       let d:number=0
 
       const progressCallback = (p:number)=>{
-        if(p>0 && p%logFrequency===0) {
+        if(p>0 || p%logFrequency===0) {
             logEngine.AddLogEntry(LogEngine.EntryType.Info, getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
         }
       }
@@ -19,6 +21,7 @@ export const executePromisesWithProgress = async function(logEngine:LogEngine, p
       progressCallback(0);
 
       for(const promise of promises) {
+        console.debug(promise)
           await promise
           .then(() => {
               d++;
