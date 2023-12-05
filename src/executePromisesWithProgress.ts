@@ -8,29 +8,34 @@ export const executePromisesWithProgress = async function(logEngine:LogEngine, p
     try {
 
       const timeStart:Date = new Date()
-      let d:number=0
+      // let d:number=0
 
-      const progressCallback = (p:number)=>{
-        if(p>0 || p%logFrequency===0) {
-            logEngine.AddLogEntry(LogEngine.EntryType.Info, getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
-        }
-      }
+      // const progressCallback = (p:number)=>{
+      //   if(p>0 || p%logFrequency===0) {
+      //       logEngine.AddLogEntry(LogEngine.EntryType.Info, getProgressMessage('', 'performed', p, promises.length, timeStart, new Date()));
+      //   }
+      // }
       
-      progressCallback(0);
+      // progressCallback(0);
 
-      for(const promise of promises) {
-          await promise
-          .then(() => {
-              d++;
-              progressCallback(d)
-          })
-          .catch((err: any) => {
-            throw(`${err}`)
-          })
+      // for(const promise of promises) {
+      //     await promise
+      //     .then(() => {
+      //         d++;
+      //         progressCallback(d)
+      //     })
+      //     .catch((err: any) => {
+      //       throw(`${err}`)
+      //     })
           
           
+      // }
+      // await Promise.all(promises);
+
+      for(let i=0; i<promises.length; i++) {
+        await promises[i];
+        if(i>0 && i%logFrequency===0) {logEngine.AddLogEntry(LogEngine.EntryType.Info, getProgressMessage('', 'performed', i, promises.length, timeStart, new Date()));}
       }
-      await Promise.all(promises);
 
       logEngine.AddLogEntry(LogEngine.EntryType.Success, `.. complete; performed ${promises.length} operations in ${formatDuration(timeStart, new Date())}`);
 
