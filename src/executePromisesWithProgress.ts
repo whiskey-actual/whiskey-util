@@ -25,7 +25,7 @@ export const executePromisesWithProgress = async function(logEngine:LogEngine, p
               progressCallback(d)
           })
           .catch((err: any) => {
-            throw(`${arguments.callee.toString()}: ${err}`)
+            throw(`${err}`)
           })
           
           
