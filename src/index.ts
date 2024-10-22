@@ -1,32 +1,44 @@
-import { executePromisesWithProgress } from './executePromisesWithProgress';
+import { executePromisesWithProgress } from './progress/executePromisesWithProgress';
 // dates
-import { formatDuration } from './formatDuration';
+import { formatDuration } from './progress/formatDuration';
 import { getMaxDateFromObject } from './dates/getMaxDateFromObject';
 import getMaxDateFromArray from './dates/getMaxDateFromArray';
 import { ldapTimestampToJS } from './dates/ldapTimestampToJS';
 // input sanitization
-import { CleanedString } from './CleanedString';
+import { CleanedString } from './strings/CleanedString';
 import { CleanedDate } from './dates/CleanedDate';
-import { textToBoolean } from './textToBoolean';
+import { textToBoolean } from './strings/textToBoolean';
 import { pruneJsonObject } from './pruneJsonObject'
 // output
-import { getProcessingRatePerSecond } from './getProcessingRatePerSecond';
-import { getProgressMessage } from './getProgressMessage';
-import { doesRegexMatch } from './doesRegexMatch';
-import { getAlphaArray } from './AlphaArray';
+import { getProcessingRatePerSecond } from './progress/getProcessingRatePerSecond';
+import { getProgressMessage } from './progress/getProgressMessage';
+import { doesRegexMatch } from './strings/doesRegexMatch';
+import { getAlphaArray } from './strings/AlphaArray';
+import isInvalidDate from './dates/isInvalidDate';
 
 export = {
+
+  // dates
+  CleanedDate,
   getMaxDateFromArray,
+  getMaxDateFromObject,
+  isInvalidDate,
+  ldapTimestampToJS,
+
+  // strings
+  CleanedString,
+  textToBoolean,
+  doesRegexMatch,
+  getAlphaArray,
+
+  // progress
   formatDuration,
   getProcessingRatePerSecond,
   getProgressMessage,
-  CleanedString,
-  CleanedDate,
   executePromisesWithProgress,
-  textToBoolean,
-  getMaxDateFromObject,
+  
+  // etc
   pruneJsonObject,
-  ldapTimestampToJS,
-  doesRegexMatch,
-  getAlphaArray
+  
+  
 }
