@@ -1,13 +1,12 @@
 import { executePromisesWithProgress } from './executePromisesWithProgress';
 // dates
-import { minimumJsonDate } from './minimumJsonDate';
 import { formatDuration } from './formatDuration';
-import { getMaxDateFromObject } from './getMaxDateFromObject';
-import { getMaxDateFromArray } from './getMaxDateFromArray';
-import { ldapTimestampToJS } from './ldapTimestampToJS';
+import { getMaxDateFromObject } from './dates/getMaxDateFromObject';
+import getMaxDateFromArray from './dates/getMaxDateFromArray';
+import { ldapTimestampToJS } from './dates/ldapTimestampToJS';
 // input sanitization
 import { CleanedString } from './CleanedString';
-import { CleanedDate } from './CleanedDate';
+import { CleanedDate } from './dates/CleanedDate';
 import { textToBoolean } from './textToBoolean';
 import { pruneJsonObject } from './pruneJsonObject'
 // output
@@ -17,7 +16,6 @@ import { doesRegexMatch } from './doesRegexMatch';
 import { getAlphaArray } from './AlphaArray';
 
 export = {
-  minimumJsonDate,
   getMaxDateFromArray,
   formatDuration,
   getProcessingRatePerSecond,
